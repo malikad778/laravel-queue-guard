@@ -1,0 +1,65 @@
+{
+  "name": "malikad/laravel-queue-guard",
+  "description": "Static analysis for Laravel queues, Horizon and FinTech concurrency bugs. PHPStan extension + zero-bootstrap CLI.",
+  "type": "phpstan-extension",
+  "keywords": [
+    "laravel",
+    "queue",
+    "horizon",
+    "phpstan",
+    "static-analysis",
+    "idempotency",
+    "stripe",
+    "cashier",
+    "ast",
+    "ci"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^8.1",
+    "nikic/php-parser": "^5.0",
+    "symfony/console": "^6.4|^7.0",
+    "symfony/finder": "^6.4|^7.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.11|^2.0",
+    "phpstan/phpstan-phpunit": "^1.4|^2.0",
+    "phpunit/phpunit": "^10.5|^11.0",
+    "laravel/pint": "^1.0"
+  },
+  "suggest": {
+    "phpstan/phpstan": "Type-aware analysis (recommended)",
+    "phpstan/extension-installer": "Auto-registers extension.neon"
+  },
+  "bin": [
+    "bin/queue-guard"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Malikad\\QueueGuard\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Malikad\\QueueGuard\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "phpstan": {
+      "includes": [
+        "extension.neon"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "test": "phpunit",
+    "analyse": "bin/queue-guard analyse",
+    "phpstan": "phpstan analyse",
+    "pint": "pint src config tests"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

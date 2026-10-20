@@ -1,0 +1,30 @@
+name: Rule Request
+description: Propose a new queue or concurrency static analysis rule
+labels: ['rule-request']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Production Incident or Bug Pattern
+      description: Describe the real-world queue bug or incident this rule would prevent.
+    validations:
+      required: true
+  - type: textarea
+    id: bad_code
+    attributes:
+      label: Bad Code Example
+      render: php
+    validations:
+      required: true
+  - type: textarea
+    id: good_code
+    attributes:
+      label: Recommended Safe Code Example
+      render: php
+    validations:
+      required: true
+  - type: input
+    id: detection
+    attributes:
+      label: Detection Mechanism
+      description: What AST nodes or function calls should trigger this rule?

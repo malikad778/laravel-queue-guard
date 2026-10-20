@@ -1,0 +1,16 @@
+/vendor/
+/build/
+/.phpunit.cache/
+/.queue-guard-cache/
+.phpstan.cache/
+.phpunit.result.cache
+composer.lock
+queue-guard-baseline.json
+infection.log
+.DS_Store
+Thumbs.db
+*.zip
+i.php
+laravel-queue-guard-plan.md
+build-zip.php
+verify-zip.php

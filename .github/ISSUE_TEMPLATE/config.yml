@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/malikad778/laravel-queue-guard/discussions
+    about: Ask questions and discuss queue architectures with the community

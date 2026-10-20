@@ -1,0 +1,44 @@
+name: Bug Report
+description: Report a reproducible bug in laravel-queue-guard
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue!
+  - type: input
+    id: version
+    attributes:
+      label: Laravel Queue Guard Version
+      description: What version of laravel-queue-guard are you using?
+      placeholder: 0.2.0
+    validations:
+      required: true
+  - type: input
+    id: php_laravel
+    attributes:
+      label: PHP and Laravel Versions
+      description: PHP and Laravel version combinations
+      placeholder: PHP 8.2, Laravel 11.0
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal Reproduction Snippet
+      description: Please share a minimal PHP code sample reproducing the issue.
+      render: php
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Output / Error Message
+    validations:
+      required: true

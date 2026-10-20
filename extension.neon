@@ -1,0 +1,108 @@
+parameters:
+    queueGuard:
+        paths:
+            - app
+            - Modules
+        externalCallClasses: []
+        financialCallClasses: []
+        maxCallDepth: 2
+        rules: {}
+        severity: []
+
+parametersSchema:
+    queueGuard: structure([
+        paths: listOf(string())
+        externalCallClasses: listOf(string())
+        financialCallClasses: listOf(string())
+        maxCallDepth: int()
+        rules: arrayOf(anyOf(bool(), structure([
+            enabled: bool()
+            severity: schema(string(), nullable())
+        ])))
+        severity: arrayOf(string())
+    ])
+
+services:
+    -
+        class: Malikad\QueueGuard\Core\Config
+        arguments:
+            paths: %queueGuard.paths%
+            exclude: []
+            rules: %queueGuard.rules%
+            externalCallClasses: %queueGuard.externalCallClasses%
+            financialCallClasses: %queueGuard.financialCallClasses%
+            maxCallDepth: %queueGuard.maxCallDepth%
+            baseline: null
+            format: 'console'
+            failOn: \Malikad\QueueGuard\Core\Severity::Error
+            projectRoot: %currentWorkingDirectory%
+    -
+        class: Malikad\QueueGuard\Support\DocblockInspector
+    -
+        class: Malikad\QueueGuard\Support\StaticConfigReader
+    -
+        class: Malikad\QueueGuard\Support\QueueClassResolver
+    -
+        class: Malikad\QueueGuard\Support\TransactionScopeFinder
+    -
+        class: Malikad\QueueGuard\Support\ExternalCallMatcher
+    -
+        class: Malikad\QueueGuard\Support\DispatchCallMatcher
+    -
+        class: Malikad\QueueGuard\Support\IdempotencySignals
+    -
+        class: Malikad\QueueGuard\Support\JobConfigReader
+    -
+        class: Malikad\QueueGuard\Detectors\HttpInsideTransactionDetector
+    -
+        class: Malikad\QueueGuard\Detectors\NonIdempotentFinancialJobDetector
+    -
+        class: Malikad\QueueGuard\Detectors\MissingSerializesModelsDetector
+    -
+        class: Malikad\QueueGuard\Detectors\UnboundedJobTimeoutDetector
+    -
+        class: Malikad\QueueGuard\Detectors\BatchWithoutFinallyDetector
+    -
+        class: Malikad\QueueGuard\Detectors\SyncDispatchInLoopDetector
+    -
+        class: Malikad\QueueGuard\Detectors\DispatchInsideTransactionDetector
+    -
+        class: Malikad\QueueGuard\Detectors\RetryAfterTimeoutMismatchDetector
+    -
+        class: Malikad\QueueGuard\Detectors\RequestContextInQueuedClassDetector
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\HttpInsideTransactionRule
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\NonIdempotentFinancialJobRule
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\MissingSerializesModelsRule
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\UnboundedJobTimeoutRule
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\DestructiveBatchWithoutFinallyRule
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\SyncDispatchInLoopRule
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\DispatchInsideTransactionRule
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\RetryAfterTimeoutMismatchRule
+        tags:
+            - phpstan.rules.rule
+    -
+        class: Malikad\QueueGuard\PHPStan\Rules\RequestContextInQueuedClassRule
+        tags:
+            - phpstan.rules.rule

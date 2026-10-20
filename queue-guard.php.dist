@@ -1,0 +1,75 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    /*
+    |--------------------------------------------------------------------------
+    | Target Paths
+    |--------------------------------------------------------------------------
+    | Directories or files that Queue Guard should inspect for queue jobs,
+    | listeners, mailables, notifications, and database transactions.
+    */
+    'paths' => ['app', 'Modules'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Excluded Paths
+    |--------------------------------------------------------------------------
+    | Folders or glob paths that should be skipped during analysis.
+    */
+    'exclude' => ['app/Legacy', 'tests', 'vendor'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Rules Configuration
+    |--------------------------------------------------------------------------
+    | Configure whether each rule is enabled and what severity it reports.
+    | Severities: 'error', 'warning', 'info'.
+    */
+    'rules' => [
+        'QG001' => ['enabled' => true, 'severity' => 'error'],
+        'QG002' => ['enabled' => true, 'severity' => 'error'],
+        'QG003' => ['enabled' => true, 'severity' => 'error'],
+        'QG004' => ['enabled' => true, 'severity' => 'warning'],
+        'QG005' => ['enabled' => true, 'severity' => 'warning'],
+        'QG006' => ['enabled' => true, 'severity' => 'warning'],
+        'QG007' => ['enabled' => true, 'severity' => 'error'],
+        'QG008' => ['enabled' => true, 'severity' => 'error'],
+        'QG009' => ['enabled' => true, 'severity' => 'error'],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | External Call Classes (QG001)
+    |--------------------------------------------------------------------------
+    | Additional third-party SDKs, APIs, or service classes that make network
+    | calls and must never be executed inside a database transaction.
+    */
+    'externalCallClasses' => [
+        'App\\Services\\PaymentGateway',
+        'Twilio\\Rest\\Client',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Financial Call Classes (QG002)
+    |--------------------------------------------------------------------------
+    | Additional services that execute side-effects or mutate monetary balances
+    | requiring an idempotency key or attempt guard in retried jobs.
+    */
+    'financialCallClasses' => [
+        'App\\Services\\Wallet',
+        'App\\Services\\Ledger',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Call Depth & Baseline
+    |--------------------------------------------------------------------------
+    */
+    'maxCallDepth' => 2,
+    'baseline' => 'queue-guard-baseline.json',
+    'format' => 'console',
+    'failOn' => 'error',
+];

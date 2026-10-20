@@ -1,0 +1,15 @@
+* text=auto eol=lf
+*.php text eol=lf
+
+/tests export-ignore
+/docs export-ignore
+/.github export-ignore
+/.phpunit.cache export-ignore
+/.queue-guard-cache export-ignore
+phpstan.neon.dist export-ignore
+phpunit.xml.dist export-ignore
+pint.json export-ignore
+infection.json5 export-ignore
+rector.php export-ignore
+i.php export-ignore
+laravel-queue-guard-plan.md export-ignore

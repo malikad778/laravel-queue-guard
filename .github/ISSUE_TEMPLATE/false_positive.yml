@@ -1,0 +1,39 @@
+name: False Positive Report
+description: Report code incorrectly flagged by a Queue Guard rule
+labels: ['false-positive']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Our policy: Any confirmed false positive becomes a fixture and a patch release within 7 days.
+  - type: dropdown
+    id: rule_id
+    attributes:
+      label: Which rule triggered the false positive?
+      options:
+        - QG001 - HttpInsideTransaction
+        - QG002 - NonIdempotentFinancialJob
+        - QG003 - MissingSerializesModels
+        - QG004 - UnboundedJobTimeout
+        - QG005 - BatchWithoutFinally
+        - QG006 - SyncDispatchInLoop
+        - QG007 - DispatchInsideTransaction
+        - QG008 - RetryAfterTimeoutMismatch
+        - QG009 - RequestContextInQueuedClass
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Minimal Safe Code Sample
+      description: Provide the exact PHP snippet that triggers the rule, but is safe in your architecture.
+      render: php
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why is this safe?
+      description: Explain why this code does not cause the underlying queue/transaction bug.
+    validations:
+      required: true
