@@ -1,10 +1,7 @@
 name: Mutation Testing
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   infection:
@@ -16,11 +13,14 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           coverage: pcov
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Install Infection
+        run: composer require --dev infection/infection:^0.29 --no-interaction --no-progress
 
       - name: Run Infection
         run: vendor/bin/infection --min-msi=70 --min-covered-msi=80 --threads=4
